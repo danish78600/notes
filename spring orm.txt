@@ -1,0 +1,33 @@
+spring orm is a framework of spring.
+some of the orm frameworks are hibenrate , toplink,iBATIS
+
+in this we will use spring with orm as 1stly we use normal jdbc then spring jdbc then hibenrate and now spring hibernate which is too good to use as:-
+1. less coding is required.
+as in hibernate we have to open session open session factory and else other code.
+
+2. easy to test
+
+3. better execptional handling
+
+4. integrated transaction management
+
+WORKING WITH DATABASE:-
+
+in preiusly we have to send req from java app to jdbc and then jdbc fetches the data from database or perform other crud operations 
+
+but now-
+we have replaced jdbc with orm and in java app we will create a class and map it to the table columns  
+
+now if you want the data then you have to directly send req to orm then it will provides you the data.
+
+we can use it with spring orm with the use of class hibernatetemplate that has many methods such as save insert update get etc.
+
+HOW TO WORK WITH SPRING ORM?
+
+so we have a class product dao which is a dao class in which we will perform operations but we will append this class to hibernate template class as product dao will depend on hiebrante temp and hibernate temp also depends on session factory which is a interfece so will use its implementation class which is localsessionfactorybean and this lcoalsessionfactorybean needs 3 thinks :
+data source-url,usename,pass
+hibenrate properties
+annotated class
+
+//Data Access Objects (or DAOs for short) are used as a direct line of connection and communication with our database. DAOs are used when the actual CRUD (CRUD = Create, Read, Update, Delete) operations are needed and invoked in our Java code. 
+

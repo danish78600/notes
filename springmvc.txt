@@ -1,0 +1,240 @@
+mvc framework of spring to build web app
+mvc -model view controller
+
+ <%@page isELIgnored="false" %>   the above is used to enable expression language 
+
+mvc is built on servlet api
+
+it follows the mvc pattern
+
+Spring provides view resolvers, which enable you to render models in a browser without tying you to a specific view technology.
+
+model-data
+view-what to view
+controller-to control
+
+it implements the basic features of core spring frameworks 
+
+WHY SPRING MVC?
+seperate each role:-
+model
+view
+controller
+
+powerful configuration
+
+it is sub framework of spring so we can use the concepts of spring
+
+rapid app development
+
+spring mvc is flexible
+
+MVC DESIGN PATTERN:-
+
+MODEL-data
+VIEW-presents data to user
+CONTROLLER-interface b/w model and view as it controls the data
+
+mvc is a design pattern to organise the code.
+
+for e.g. in jsp and sevlet- jsp views the data or presents it and the servlet works as a controller as the logic is written in it.
+
+mvc seperates code between model view controller
+
+//WORKING OF MVC
+
+in client server model the client will send request and the front constroller will accept the req and pass it to the controller which will handles the request and after working it will send the req and model(data) and the name of view back to the front controller
+
+and with the help of view resolver front controller will send response to view template on(index.jsp) and then view template will send back the control to front contrler and then it will send the response to client
+
+front controller is the dispatcher servlet.
+
+view resolver-it will resolves that which jsp file to view
+
+5 steps to configure spring mvc
+
+1. configure the dispatcher servlet in web.xml:-
+
+ <servlet>
+  <servlet-name>spring</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>spring</servlet-name>
+  <url-pattern>/</url-pattern> <!-- it means it has to handle all the req from all urls -->
+  </servlet-mapping>
+
+
+2. create a spring configuration file:- we will cretae a config.xml in our project
+
+3. configure view resolver :-
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<property name="prefix" value="/WEB-INF/views/">
+</property>
+<property name="suffix" value=".jsp"></property>
+</bean>
+
+4. create controller:-
+
+@Controller
+public class HomeController {
+	
+@RequestMapping("/home") //on firing home url index page in homepage will run 
+public String homePage()
+
+{
+System.out.println("this is home url");
+return "index";
+}
+}
+
+
+5. create a view to show page
+
+//SENDING DATA FROM CONTROLLER TO VIEW
+
+we can send this by model object
+or by modelandview object
+
+in model we use
+addAttribute(String key,Object value)
+
+modelandview will have use
+addObject(String key,Object value)
+
+Model defines a holder for model attributes and is primarily designed for adding attributes to the model.
+
+ModelAndView is a holder for a model and a view; it allows to return both model and view in one return value.
+
+first add Model model object in home controler:-
+
+public String homePage(Model model)
+
+{
+model.addAttribute("name", "danishbhandaru");
+System.out.println("this is home url");
+return "index";
+}
+	
+
+we can add data by
+model.addAttribute("key","value");
+
+and in index we can get data by
+request.getAttribute("key");
+and then parse this object to string or int as needed to get the result
+
+
+//USING MODEL AND VIEW FOR TAKING DATA FROM CONTROLLER TO VEIW PAGE
+
+public ModelAndView helpPage(Model model)
+{
+//creating modeland view object
+ModelAndView modelAndView=new ModelAndView();
+modelAndView.addObject("key","value");
+System.out.println("help");
+modelAndView.setViewName("help");  //which view page to show as we have set the name of the view page
+return modelAndView;
+}
+
+in this we have a return type ModelAndView so in this method we will create an object of modelandview and then we cna use its methods such as addObject("key","value");
+and to get them in jsp the process is same as in previous model object.
+
+//JSP Expression Language to Print Values in Spring MVC Views 
+
+so to print data in jsp we have to do a lot as every time we have to get it or use the req 
+
+but this can be solved by this:
+
+by expression language in this we can directly print by:
+${variablename}
+
+if we have to print list then we can use jstl tags
+
+<c:forEach var="item" items="${marks }">
+<h2 style="color:blue;" >${item }</h2>
+</c:forEach>
+
+to use this expresion language we have to use
+   <%@page isELIgnored="false" %> 
+
+//SENDING DATA FROM VIEW TO CONSTROLLER
+
+to get data from controller we have 3 things:
+HTTPSERVLET object
+@requestmapping annotation
+@modelattribute annotation
+
+take an example we have index.jsp as a view and we have controller class
+
+use html form in jsp and when the form is submiteed then we can get the data in the controller
+
+we can access the data in controller by the use of HttpServletRequest object and then we uses getParameter method but this method is old so we will use @RequestParam
+it will fetch the data of each and every data
+
+or we can use @ModelAttribute it will get data collectively as an object of class
+
+
+@RequestMapping annotation
+we use this annotation for mapping urls onto an entire class or a particular handler method.
+
+for using it for  a class we have to use the annotation above the class and we have to use the above class annotation url first then the child one
+
+RequestMapping("/first")
+public class danih{
+@RequestMapping("/home")
+public void dai()
+{
+}
+}
+
+so we have to use /first/home to access the danih method
+
+to specify that the controler has to work with which method for e.g. get post put 
+we can do:
+@RequestMapping("/home",method=RequestMethod.GET)
+
+So it will supports only get
+
+//@REQUESTPARAM ANNOTATION
+
+public String handleForm(@RequestParam ("email")String email,
+		@RequestParam("pass")String pass)
+{
+	
+System.out.println(pass);
+System.out.println(email);
+return "";
+}
+
+//so in the above we have stored the password in the pass varibale and we can print it or by the use of model we can send this data to the view page as request param will get the data
+
+//HANDLING FORM WITH MODEL ATTRIBUTE
+
+we have to write a lot of code with requestmapper annotation so this modelattribute solves that problem
+
+@RequestMapping(path="/processform", method=RequestMethod.POST)
+public String handleForm(@ModelAttribute User user,Model model)
+{
+return "success";
+}
+
+it will create an object which is user and 
+put all the data of form in user object 
+and set the data in the model
+
+it has hence done 3 things in a very short code
+
+the above is the 1st use of model attribute
+
+2nd use:-
+we donot have to wrire the code again and again as we can make a method and write the common code inside it and we can use it where we want
+
+@ModelAttribute
+public void common(Model m)
+{
+m.addAttribute("sex","male");
+System.out.println("adding common data");
+}
+

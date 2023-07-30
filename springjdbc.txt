@@ -1,0 +1,51 @@
+SPRING JDBC - it is a powerful mechnaism to connect to database and to execute sql queries
+
+java programs connect with spring jdbc module to connect to database.
+
+The Spring JDBC template allows to clean-up the resources automatically, e.g. release the database connections
+
+NORMAL JDBC-api with which we perform operations with database.
+spring jdbc will provide us more features than jdbc
+
+why to use spring jdbc instead of jdbc?
+
+problems of jdbc:
+1. we need to write a lot of code as we have to open connection , statement , execute, close the connection
+
+2. exception handling problem - we have to write try catch to handle the exception as sql is a checked exception
+
+3. repeating all of the code from one another database logic is a time consuming task
+
+solutions of the above problems is spring jdbc:
+spring jdbc provides class JdbcTemplate that has all the important methods to perform operation with database.
+
+but the jdbc template needs an object of data source(interface) that conatins all the information about the url pass username
+but we cannot use data source as it is interface so use its chid class DriverManagerDataSource 
+
+so the information whcih we have to give the child class are:-
+url
+pass
+username
+driverclassname
+
+and so we can connect to the database.
+
+we can do the all above with autowiring
+
+//ROW MAPPER-to fetch the data 
+
+if we want a single row -
+
+public T queryForObject(String sql,RowMapper<T>,Object args)
+
+1st param is sql query
+2nd is row maper
+3rd is
+
+row mapper converts result set to object
+
+if we want multiple rows
+
+public List<T>query(String sql,RowMapper<T>)
+
+row mapper will take resultset and converts it into class object but this object will be an interface so we will extends or implements it to a new class

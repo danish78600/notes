@@ -1,0 +1,255 @@
+classes are blueprint (properties) and objects are which we create on base on that blueprint
+
+functions defined in class are called methods
+
+data+members=class
+
+this is a keyword which represents this jisme call hoge usse print krega
+
+new keyword used to reserve space for storing objects
+
+properties of constructor:
+dont return anythink
+have same name of class
+
+
+whenever an object is made the constructor is called firstly
+
+java has garbage collector that automatically deletes the object which is not used
+
+POLYMORPHISM
+
+2types:
+method overloading-compile time polymorphism
+
+method overiding
+
+method overloading - making many methods with same name but with different paramteers
+in this object itself detects which function to call
+
+rules:
+must have a differentiation- return type,parameters (any 1)
+
+
+INHERITENCE 
+
+one class inherit the properties or methods of another class
+
+4types of inheritence:
+single level-one base class and one derieved
+
+multi level-one base class other derieved class one more derieved class from the previous derieved calss
+
+hierarchial-one base class two derieved calss
+
+hybrid - different types of inheritence combination
+
+Packages-build in , which we make
+A package in Java is used to group related class
+
+access modifiers-specifies where a property is accesible.
+
+public 
+private
+protected
+default
+
+if we dont make constructor of derrieved class then it will call the constructor of base class.and if we make a constrictor in derieved class then it will firstly call the base class constructor then the derieved one.
+
+constructor overloading is making more than one constructor with same name.
+
+so in constructor overloading derieved class has to decide whcih constructor to use of the base class so that task we can do with the super keyword and it will execute according to the parameters inside it.
+
+
+DYNAMIC METHOD DISPATCH:-  danish k=new kartik(); //reference of super class is equal to base class is allowed. it is known as runtime polymorphism. but we can use only the properties of kartik as it is the object created and only those properties which are included in the super class.
+
+so dynamic method dispatch is to decide at the runtime that which method to run.
+
+abstract-existing in idea with existence.
+
+ABSTRACT CLASSES AND INTERFACES:-
+
+abstract method-method declared without implementation.
+
+abstract class-class that contains abstract methods.
+
+
+abstract methods are overwrited when needed.
+
+abstract class is also used to help the otherclasses to make.
+
+while making an abstratc class if we want to make otherclass inherited from abstract one then we either have to use abstract keyword or overwriding.
+
+abstract class contains both abstract and non abstract methods.
+
+abstract class ka object nahi bnn skta but it is only a way for creating concrete classes (not abstract).
+
+it is possible to create a reference of an abstratc class.
+
+INTERFACES-interfaces in english means a point where two systems meet and interact.
+
+But in java , interfaces means a group of related methods with empty bodies.
+
+interface ke objects nahi bnn skte.
+but its reference can be created.
+
+abstract class can contains non abstratc methods but interface has all abstract methods means we must have to implement them.
+
+in interfaces we use implements keyword in child class for parent class.
+
+whenever we implemets an interface then we have to declare the methods public.
+
+DIFFERENCE BETWEEN ABSTRACT CLASS AND INTERFACES:-
+we can extends only one class but we can implements more than one interfaces.
+
+we cannot modify the properties of interfaces but we can access it.
+
+multiple inheritence is not allowed in java means we cannot make new class with the use of 2 super class but indirectly it is allowed by interfaces.
+
+
+DEFAULT METHODS:-these are used to add new functionality to existing interfaces.
+
+by using default keyword we can define a methods in interfaces without using them in implemented class.and if we define them in implemented class then the one which is in child class will run priority wise.
+
+we can also define private methods in interface without implementing them in implemented class.
+
+INHERITENCE IN INTERFACES:-
+interfaces cannot implement each other they can only extend.
+
+by using extends keyword.
+
+so in the class in which we will use the interface its inherited interface methods both must be included in the class.
+
+POLYMORPHISM IN INTRFACES:-
+ wifi n=new smartphone();  //giving a reference of an interface means we cannot access methods outside the interface. 
+
+in this we cannot use methods which are not in wifi interface.
+
+implementing an interface forces method implementation.
+
+inerpreter translates one statement at a time into machine code.
+
+compiler scans the entire program and translates whole of it into machine code.
+
+interpreter is needed everytime
+but compiler once compiles the program then not needed
+
+interpreter-partial execution if error
+compiler-not execution if an error occurs.
+
+compiled languages are fast.
+
+java is both compiled and interpreted.
+
+java file is first compiled using javac compiler and is converted into class file which is .class file which is called bytecode and it is platform indeependent means it can be interpreted by any platform jvm for e.g. windows mac or linux.
+
+
+harry.java-compiled
+harry.class-interpreted
+
+GETTERS AND SETTERS:-
+when we make private variables in classes and we cannot access them in the objects we created in the main method so we have to use getters and setters
+
+we can execute java program by another way:-by compiling it and then name of class file if danish then:- java danish
+
+MULTITHREADING - 
+ Multithreading refers to a process of executing two or more threads simultaneously for maximum utilization of the CPU
+
+threads are used to do multitasking in a process.
+
+threads=>fast content switching
+
+threads are light weight but multiprocessing is heavy weight.
+
+threads uses shared memory area.
+
+2 ways to create threads in java
+1. by extending thread class
+2. by implementing runnable interface.
+
+Concurrency is task of running and managing multiple computations at the same time. Parallelism is about multiple tasks doing simultaneously.
+
+multithreading helps us in concurency
+
+thread is similar to asynchronus.
+
+start() is used to start threads.
+
+life cycle of a thread:-
+new 
+runnable-after invocation of start()
+running-after thread scheduler has selected it.
+terminated
+non runnable- thread alive not eligible run
+
+start() method causes this thread to begin execution
+
+when java has many threads then a readyqueue maintined by jvm which includes all the threads which are ready to run.but we can specify how much priority to give the threads
+
+3typres of priority:
+min -1
+normal-5
+max-10
+
+there are methods to set the priority of the threads
+
+Thread.MAX_PRIORITY();
+Thread.MIN_PRIORITY();
+
+If we want a thread to finish completely then only will the next thread runs.
+
+
+so use .join() inside try catch.
+thread.sleep donot let the thread to run for  a fixed time given in the arguements.
+
+ERRORS AND EXCEPTIONS
+
+3 types:-
+syntax
+logical
+runtime
+
+syntax - compiler finds something wrong in your progarm
+
+logical error is a bug in a program that causes it to operate incorrectly, but not to terminate abnormally (or crash)
+
+runtime error is that occurs during runtime. for e,g, the input is wrong by the user.these are also called exceptions
+
+exception handling is done with the help of try catch block
+
+in java we can also handle multiple exceptions
+
+finally block contains the code which is always executed whether the exception is handle or not.
+
+finally block is mainly needed when we have  a return statemenet in try block . if we donotn use finally and write the code normally then after the return value is returned then the next code will not executed until it is inside the finally block.
+
+HANDLING SPECIFIC EXCEPTIONS:
+we can handle different exceptions by writing them inside catch code seperately 
+
+for e.g. airthmetic exception,array out of bond exception
+
+and then we can execute different errors on the base of the specified exceptions.
+
+NESTED TRY-CATCH:
+in this first it will check inside first catch which is nested if the matter is resolved then it will get breaked
+otherwise it will move inside the catch which is outside.
+
+EXCEPTION CLASS
+
+with the use of this we can create custom exceptions and can throw them .it has methods which are built in for e.g. toString() and getMessage()
+and we can also use built in exception like airthmetic exception
+
+printStackTrace will help us in finding the line which has error.
+
+throw keyword is used to throw an exception by a programmer
+
+THROW VS THROWS
+
+throws keyword helps in a method to give a warning to the user that this function throws an exception so be aware.
+
+throws-Used to indicate what exception type may be thrown by a method
+
+so we have to use the method only inside the try catch block if we use throws keyword. as it will told otherwise that this method has a warning which is due to throws keyword so make a try catch .
+
+
+

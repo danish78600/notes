@@ -1,0 +1,220 @@
+hibernate is an orm tool. it is a java framework that simplifies dev of java application to interact with database
+
+hibernate will automatically 
+orm(object relational mapping)
+object-
+relational-table
+mapping - to map
+
+orm means we will make an object and we will map it to the table.
+
+hibernate will not force to implement or extend a class
+any type of app can be built by hibernate application.
+
+we have to give the object to hibernate and it will automatically injects it into the table
+
+we can do the mapping by xml or java
+
+so hibernate communicates with database so we have to tell it the name of database username pass etc inside configuration file
+
+sessionfactory is a type of conection.The SessionFactory is a thread safe object and used by all the threads of an application
+
+SessionFactory factory=new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+
+the above code will build a new session and store it in factory
+
+the xml code will defines the property to the hibernate so that the we will give the object of data to hibernate and the hibernate will easily connect to the database.
+
+ A hibernate dialect gives information to the framework of how to convert hibernate queries(HQL) into native SQL queries
+
+ hbm2ddl Configuration means hibernate mapping to create schema DDL (Data Definition Language
+
+//FIRST HIBERNATE PROGRAM TO SAVE DATA
+
+we have to map the class to the table columns 
+the class will be an entity so hibernate can save it and put it into table
+
+The entities are the persistence objects stores as a record in the database
+@Entity
+
+@Table(name="students")
+
+now our program knows that we have to create  a table with name students  
+
+so if we use @id above any variable it declares that the particular variable is primary key
+
+in this program we will create an entity and map it to the xml file and in main file we can use session object to save the data show it begin transaction or doing some other crud operations
+
+
+//SOME COMMON ANNOTATIONS
+
+@Entity-use to mark a class as entity it tells the hibernate to create its table
+
+@table-used to change table details
+
+@Id-use to mark a column as primary key
+
+@GeneratedValue - hibernate will automatically generates values for internal sequence for e.g auto increment
+
+
+@Column- used to specify column mappings for e.g. change the name of the column associated in the database
+
+@Transient-this tells not to save this field of class to the table
+
+@Temporal-use to tell format of date stored in table
+
+@Lob-lob tells hibernate that this is a large object not a simple object
+
+//FETCHING OBJECT with get() and load()
+
+to fetch data we donot need transaction to begin or save
+
+difference between get() and load()
+
+get()- if the value in database is not found then it will print null
+
+load()-if value in database is not found then it will throw an exception
+
+get()-use it when you are not sure that object(value) exists or not
+
+load()-use it when you are sure that object(value) exists 
+
+get()-when you call then the object comes in session object and data will be stored in cache memory and if you again call it it will give you data without hitting the database
+
+load()-it return object when we call methods inside object load method return proxy and only initialize the object or hit the method if any other method other than getId() this is called lazy initialization but it increases the performance
+
+@Embeddable annotation
+
+if we have 2 classes and one is entity means the 1st one is making its table and if we want to pass the 2nd class reference and use its variables in the 1st table so we can use @embedable annotation on the 2nd class so that the variables of 2nd class can be used in 1st class table
+
+//ONE TO ONE MAPPING 
+
+ One to one represents that a single entity is associated with a single instance of the other entity
+
+for e.g. one question can have one answer or one studnet can have one laptop
+
+e.g we have two classes the 1st and 2nd both are entity and in this we have 1st class with question and 2nd class with answers so to map answers to question we can simple use the 2nd class primary key as first class foreign key  this is uni-directional and if it is done opposite then it is bidirectional
+
+@JoinColumn(name="")- to change the name of column of the primary key which is acting as foregin key
+
+//ONE TO MANY AND MANY TO ONE RELATIONSHIP
+
+in this one question can have many answers or many answers and many answers have one question
+
+//MANY TO MANY MAPPING
+
+one employ can be given multiple projects and many projects can be given to one person
+
+two tables so one project and another persons
+in this we will take a new tables with columns -  eid and pid 
+
+//FETCH TECHNIQUE THEORY
+
+2 types:
+1. eager-design pattern in which data laoding occurs on the spot
+2. lazy-data loads only when we call getter setters explicitly
+
+
+automatically our program has lazy loading but we can make it eager by:-
+
+@OneToMany(mappedBy = "question",fetch = FetchType.EAGER)
+
+we will do it above that variable on which we want to do the type of loading
+
+for e.g. class question
+{
+}
+
+class answer
+{
+}
+
+so if we want that we load question the answer must laod automatically so we will use eager type whose synatx is given above.
+
+
+//HIEBRNATE/PERSISTENCE OBJECT STATES
+
+the session objects gives us the power to store data in database or do some other operations easily
+
+with the use of hibernate ,it store object to the database .so it has 4 important states:-
+
+1.Transient-when the values of object are set then it is in transient state
+
+2.Persistent-when we save the object by session.save() then it is in persistence state as it will now stored in the form of database in the tables and our object is associated with session object
+
+3.Detached- when we will close the session then the object from session will be removed but the values will remained stored in database so it will be in detached state.
+
+4.Removed-but inside of close if we call delete then the value from the database will be removed but in the session they will remain saved
+
+//HQL-HIBERNATE QUERY LANGUAGE
+
+how we get data in hibernate :- by get() and load()
+
+how to load complex data
+for e.g. we have to match the username and pass and if matches then show data
+
+so for complex data we can use HQL which is similar to sql as hql supports sql but if we are java programmer then we must use hql
+
+sql vs hql
+
+hql-database independent as we can use on all databases
+sql-database dependent
+
+hql-easy to learn for programmer
+sql-easy to learn for database administarter
+
+hql-from student  //here student is entity name
+sql- select * from student //here student is table name
+
+we can use both sql and hql
+
+//HQL QUERIES
+update 
+delete
+
+//IMPLEMENTING PAGINATION USING HQL QUERIES
+
+Pagination is the process of dividing a large set of data into smaller, more manageable chunks or pages for easier navigation and faster loading times.
+
+//NATIVE SQL QUERIES
+
+in hql we use createquery but in sql we use createsqlquery()
+
+in executing sql queries is as easy and are similar to hql
+
+//HIBERNATE CASCADING
+
+Cascading in Hibernate refers to the automatic persistence of related entities
+
+for e.g if we save questions then its related answers will also be automatically be saved.
+
+//CACHING
+It is a mechanism to enhance the performance of application .
+
+it is used in the scenerio for e,g, if we are hitting many sql queries to the database then application performance becomes slow
+cache is used to reduce the no of database queries
+
+Concept of caching:-
+hibernate consists of cache memory which is b/w database and java app so if we want an object from database so we send req by java app to hibernate so hibenrate will check if data present in its cache memory if not then it will get obj from database and put it into its cache memory and whenever the app wants it the hibenrate will return the obj to it.
+
+CACHING 3 TYPES:
+FIRST LEVEL - assocciated with session object 
+
+in the above if session is not closed then it will easily get the data from db first level caching is by default provdied but when we close session the we cannot use the data
+
+SECOND LEVEL-associated with session factory  we had to enable it manually by annotations
+
+//HIBENRATE XML MAPPINGS
+
+so in previous we use annotations such as entity to make class as a table in database and @id to make a primary key but now we have to do this and all the mappings with use of xml
+
+we will name the xml file :- entityname.hbm.xml
+
+//HIBENRATE CRIETERIA API
+
+it is used to fetch data from the database easily 
+in this we can also make restrictions 
+
+in this we get the data in the form of list and then we can get the data
+
+ 

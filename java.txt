@@ -1,0 +1,71 @@
+JAVA COLLECTIONS FRAMEWORK
+
+in java we can store no of 10 students in array but if we have make an array size of 10 and 11th student come for storing its no there will be a problem
+so this is solved by collection
+
+collections provides classes and interfaecs for us to write code and data effeciently
+
+why we need collections:
+resize an error
+delete an element
+insert an element in between 
+
+collections are available as classes and interfaces
+
+few eg of collections
+set-if one no is present then the same no cannot be come
+
+stack-a LIFO(last in first out) data structure.
+
+hash map-for storing key value pairs.
+
+array list-for variable size collection.
+
+collection class is available in java.util packaege.
+
+Java Collection Hierarchy is the hierarchy of the whole collection framework and it contained within it with four core interfaces they are Collection, Set, Map and Lis
+
+ARRAY LIST IN JAVA
+it is a modified array it has different methods .its syntax is-   ArrayList<Integer> l1=new ArrayList<>();
+
+add() it takes 2 values first is the index no where you want to store the no 2nd is the no
+
+addAll() will adds a collection
+
+.clear() will clear
+
+LINKED LIST
+
+problem with array list:
+if we have to insert an element between many eleemnts so all of the other elements have to change their position whcih will lead to more computation.
+
+in linked list all the values are linked together for e.g. 1st value will contains its value and the previous and next value reference then it will move to next value which will contains its own value and its reference to next and previous value.
+
+in linked list if we have to insert an element between then we can easily do  by linked list.
+
+linked list has almost similar methods to array list.some are additional in linked list 
+
+for e.g. addlast()
+
+ARRAY DEQUE
+
+in this we can do insertion and deletition from array from both sides. array deque internally makes an array in which its maintainence is done automatically.
+
+it also has several methdos which you can read from notes or docs
+
+HASHING
+it is used to store key value pairs into indeces.
+in this we have an array(hash table) and with the use of :- f(x) =x%10 function we have to decide the position on which we have to store our values of array.it helps us in fast searching of elements.
+
+but if 2nos are present in an array having the same remainder then their will be a problem which is knwon as hash collision.
+
+ways to solve hash collision:
+1. we can store the value having same remainder in the next inedx . this is known as open addresing to handle collision
+
+2.chaining- in this we will use linked list as for e.g. if 92 and 72 has remainder 2 then we have to give a reference of both the nos on 2nd index .
+
+The load factor is the measure that decides when to increase the capacity of the Map. The default load factor is 75% of the capacity
+
+HASHSET - like  a set that consisits of unique items
+HashSet contains only unique elements, its internal structure is optimized for faster searches
+

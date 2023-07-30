@@ -1,0 +1,560 @@
+spring is a dependency injection framework that is used to make java aplications loosely coupled
+
+loosely coupled means we can modify them easily.
+
+spring framework make the easy dev of javaEE app
+
+what is dependency injection?
+it is a designig patern . 
+Dependency injection is a programming technique that makes a class independent of its dependencies.
+
+take a exaple if 2 classes are there class danish and class kartik and danish class is depending on kartik class so spring will automatically creates the object of kartik injects the kartik in danish class with help of ioc container .
+
+in this the control of creating code of object creation goes to spring this is known as inversion of control.
+
+spring consists of following layer:-
+ui layer
+buisness layer- writing logic
+data access - acceses data
+database
+
+take an example ui layer has class product controller
+
+buisness - product service
+
+data access-product dao 
+
+so in these layers we can use dao methods in service class by creating its object but to make it easy spring itselfs injects base classes into super classes.
+
+
+//SPRING MODULES
+spring core- core,beans,context,spEL
+
+core and beans provides dependency injection. they are fundamental parts.
+
+context inherits bean module.
+
+The Spring Expression Language (SpEL for short) is a powerful expression language that supports querying and manipulating an object graph at runtime
+
+other modules are AOP,ASPECT,INSTRUMENTATION,MESSAGING
+
+the first two modules are mainly used to decouple the code which means that not to make the code complicated.
+
+aspect orientated programming allows to define point cuts to decouple the code.
+
+messaging module is used to maek messsaging apps.
+
+DATA ACCESS MODULES-
+JDBC-to access data
+ORM-provides integration layer by whcih we can integrate any orm tools in our project
+OXM-object xml mapping
+JMS-java messaging service.
+
+WEB MODULES-
+WEB
+SERVLET
+PORTLET
+WEB SOCKET
+
+TEST MODULE-we can do testing with this.
+
+///SPRING IOC CONTAINER
+it is a component of spring framework that is used for 
+object creation hold them in memory and injects them if needed
+
+In Spring, the objects that form the backbone of your application and that are managed by the Spring IoC container are called beans
+
+only 2 thinks are needded to tell to this container
+1. beans - whcih project classes to manage
+2. configuration information - which bean is depending on whcih thing
+
+application context- it is an intefrce that extends bean which mean it has properties of bean . we will make its object to fetch values of container but we cant create its object as it is an interface but we can make object by its base class
+
+base class of app context
+CLASSPATH XML APP CONTEXT-It used to define configuration in java class path
+
+Annotation config app context-it uses those beans that uses annotations.
+
+FileSystem xml app context - searches config file from file system.
+
+
+//WAYS OF INJECTING DEPENDENCY
+
+2WAYS:
+using setter injection
+using constructor injection.
+
+SETTER INEJECTION-in this for putting values constructor is used. spring IOC will automatically create object and will put values in it
+
+class address{
+int streetno;
+string name;
+
+set streetno(streetno);
+set name(name);
+
+CONSTRUCTOR INJECTION-in this for putting values constructor is used . spring IOC will automatically put values in adress object created
+
+class adress
+{
+String name;
+int no;
+adress(name,no)
+{
+
+}
+}
+
+//CONFIGURATION FILE- XML FILE
+
+ The IoC container gets informations from the XML file and works accordingly.
+
+thus we have to tell the details of our class into that xml file like which file to inject in which file.(IOC CONTAINER) then only it will maintains it .
+
+The class which we provide to the IOC container is known as beans .
+
+the xml file will starts from beans tag which will represents no of beans.
+
+DATA TYPES(dependency injection)
+1. Primitive data types - int,char,float,double,long,boolean
+
+2.Collection type- list,set,map and properties.
+
+3.Reference type - user defined data type
+e.g we will create a class danish and will tell the ioc container to inject this class in kartik class.
+
+// CREATING A MAVEN PROJECT
+
+pom.xml - in this we will download dependies or include them
+
+we can also create normal java project but we are using maven as in it is easy to include dependency
+
+1. CREATE MAVEN PROJECT
+2. ADDING DEPENDEIES - spring core and spring context
+3. CREATING BEANS - creating a java file 
+4. CREATING CONFIGURATION FILE -creating xml file
+5. SETTER INJECTION
+6. MAIN CLASS - to pull objects 
+
+we will simply make 2 java files 1st whose object we have to make and use and the 2nd in which we have to make the main method and pull that object . then we need an xml file in which we declare our configurations and in the 1st normal java file we have to use setter injection and toString() to fetch the values
+
+/*
+ApplicationContext context= new ClassPathXmlApplicationContext("config.xml");
+index index=(index) context.getBean("index1");
+System.out.println(index);
+*/
+
+this code we will use in the main method whcih will create an object automatically with the configurations passed and will fetch them and print them in the console.
+
+//the below code is for configiration file
+
+<bean class="com.springcore.springcore.index" name="index1">
+
+ <property name="name" value="danish" />
+ 
+ <property name="no" value="1" />
+ 
+ </bean>
+
+//Property injection as p schema.
+we can also inject property by  <property name="name" p:name="shubham rawat" p:no="12"/>
+
+this is the best easy method.
+
+//HOW TO INJECT COLLECTION TYPES:
+
+//for list
+<bean>
+<property name="">
+<list>
+<value>   </value>
+<value>   </value>
+<value>   </value>
+</list>
+</property>
+</bean>
+
+
+//for map
+
+ <map>
+<entry key = "1" value = "INDIA"/>
+ <entry key = "2" value = "Pakistan"/>
+<entry key = "3" value = "USA"/>
+ <entry key = "4" value = "USA"/>
+ </map>
+
+//for properties
+
+<props>
+<prop key = "one">INDIA</prop>
+ <prop key = "one">INDIA</prop>
+<prop key = "two">Pakistan</prop>
+<prop key = "three">USA</prop>
+ <prop key = "four">USA</prop>
+</props>
+
+
+ApplicationContext context=	new ClassPathXmlApplicationContext("com/collections/newconfig.xml");
+collections name2=(collections) context.getBean("name2");
+
+in case of map syntax is different.
+
+//INJECTING REFERNECE TYPE 
+
+it is the mostly used concept in real world
+
+in this there will be 2 objects as example A and B and A is dependent on B .
+
+ <bean class="com.springcore.ref.B" name="bref">
+ <property name="y" value="21" />
+ </bean>
+ 
+ <bean class="com.springcore.ref.A" name="aref">
+ <property name="x" value ="12" />
+ <property name="ob">
+ <ref bean="bref"/>
+ </property>
+ </bean>
+
+ApplicationContext context=	new ClassPathXmlApplicationContext("com/springcore/ref/refconfig.xml");
+A a=(A)context.getBean("aref");
+System.out.println(a.getX());
+System.out.println(a.getOb().getY());
+
+//CONSTRUCTOR INJECTION
+c schema is used to access the value of constructor and p schema is used to access the value of property injection
+
+3 types to declare value 
+as atttribute
+as tag
+as schema
+
+ <bean class="com.springcore.constructorinject.person" name="person">
+ <constructor-arg value="danihs">
+ </constructor-arg>
+ <constructor-arg value="21">
+ </constructor-arg>
+ </bean>
+
+
+In Constructor Injection, the Dependency Injection will be injected with the help of constructors.
+
+//AMBIGUITY PROBLEMS
+it occurs when we use constructor injection . Ambiguity is an unclear statement, task or goal.
+In case of constructor based dependency injection if our class contains multiple constructors with different types and same number of arguments then spring framework cause the constructor injection argument type ambiguities issue.
+
+so in case of multiple constructor firstly it will find firstly string constructor to print if not then it will print following the top order.
+
+so to solve this:
+we can use type attribute in constructor arg tag to declare the type of value.
+
+<bean class="com.springcore.constructorinject.addition" name="add">
+ <constructor-arg value="12" type="int" index="0"/>
+ 
+<constructor-arg value="22" type="int" index="1"/>
+</bean>
+
+there is also other problem in which we declare 2 values in xml file and the context confuses which value to take at index 1 and which to index 2
+so to solve this we can use index attribute
+
+//LIFE CYCLE METHODS OF SPRING BEAN 
+
+spring provides 2 important methods for bean:
+1. public void init();
+2. public void destroy();
+
+we can change the name of methods but its signature must be same
+
+init contains initialisation code and destroy contains clean up code.
+
+for e.g. in the case of application context firstly the object is created then the values are set and then the init() is called and then we uses the bean and at last it will call the destroy() and after the cleanup the objects will be destroyed.
+
+we can conifg the methods by 3 ways:
+xml file
+spring interface
+java annotation
+
+//IMPLEMENTING LIFECYCLE METHODS WITH XML FILE
+
+<bean class="com.spring.lifecycle.samosa" name="s1" init-method="init" destroy-method="destroy">
+<property name="price" value="210" />
+</bean>
+
+so in bean we have declared that init method which we have declared has name init and destroy method which we have declared has name destroy
+
+so init method will called but to call destroy method we have to use registershutdownhook(); which is in the abstractapplicationcontext interface.
+
+//IMPLEMENTING BEAN LIFE CYCLE USING INTERFACES- INITIALISING BEAN AND DISPOSABLE BEAN
+
+the 1st interface is for init functionaloty and 2nd one is for destroying functionaloty.
+
+in this we will implements the above 2 interface and automatically we will be given 2 methods:
+destroy()- for destroy code
+afterPropertiesSet()- for init code
+
+//IMPLEMENTING BEAN LIFE  CYCLE METHODS USING ANNOTATIONS
+
+2annotations :
+@PostConstruct - work for init
+@PreDestroy - work for destroy
+
+Note that both the @PostConstruct and @PreDestroy annotations are part of Java EE. Since Java EE was deprecated in Java 9, and removed in Java 11, we have to add an additional dependency to use these annotations
+
+<dependency>
+    <groupId>javax.annotation</groupId>
+<artifactId>javax.annotation-api</artifactId>
+<version>1.3.2</version>
+</dependency>
+
+the above is the dependency which you have to put in your xml file.
+
+@PostConstruct
+public void start()
+{
+System.out.println("start");
+}
+
+//for init
+
+<context:annotation-config /> - this tag enables all the config used in your xml file.
+
+//AUTOWIRING IN SPRING
+
+this feature enables to automatically injects the dependies .
+
+but it has a disadvantage that it is not used for primitive data type not for collection it is only for object ref.
+
+FOR e.g. a is dependent on b so in this we will link them both automatically that's why it is known as autowiring.
+
+2 ways to do autowiring:
+manually (as we have done earlier) - <ref bean="">
+automatically
+
+autowiring is done in 2 ways:
+1. xml
+autowiring modes - it is no mode by default
+byName - inject automatically by name
+byType - inject by type
+constructor 
+autodetect - not available in spring 3
+
+2. annotations
+@Autowired
+
+autowiring advantages:
+automatic
+less code
+
+disadvantages:
+no control of programmer
+primitive and string values cannot be used.
+
+//AUTOWIRING USING XML
+
+
+<bean class="com.spring.auto.wire.Address" name="address" >
+<property name="street" value="back side baba grill" />
+<property name="city" value="amritsar" />
+</bean>
+
+ <bean class="com.spring.auto.wire.emp" name="emp" autowire="byName">
+
+it will first check the name of the bean you have declared in your dependent class as object and then it will matches it with the one present in your config file if both matches then it will do autowiring.
+for e.g. in the above the 2nd bean will check the name in dependent class which will be address and matches it with the above 1st bean name if matches then autowiring is successfull
+
+
+if we uses byType then it will check that the type of object if present then it will inject it.
+
+in autowire ="byName" it will use setter injection
+and in autowire="constructor" it will use constructor injection
+
+//AUTOWIRING USING
+ @autowired annotation.
+
+3 ways to use it:
+above property
+above constructor
+above setter method
+
+@Qualifier Annotation
+
+in autowiring if we have made 2 beans and it confuses which bean to call so the above annotation is used
+so in @Qualifier("") we can pass the name of the bean which we want to run
+
+//SPRING STANDALONE APPLICATIONS
+
+in a list we cannot uses property value outside property tag that its scope is not outside property - it is not standalone.
+
+so to make it standalone we have to make that list outside bean.
+with standalone we can also define which type of list you want to make such as linked list array list etc
+
+to make standalone we use util schema
+
+<util:list list-class="java.util.LinkedList" id="besti">
+<value>danish</value>
+<value>prince</value>
+<value>kanishk</value>
+</util:list>
+
+this code must be outside bean tag and where we have to use it we can do so by its id inside ref bean=""
+
+ <bean class="com.standalone.person" name="person1">
+ <property name="friends">
+ <ref bean="besti"/>
+ </property>
+
+
+//STEROTYPE ANNOTATIONS
+
+Stereotype annotations are a set of specialized annotations that are used to indicate the role or purpose of a particular component within the application.it is basically used in the place of xml file bean tag.
+
+this can be done with @Component 
+annotation
+
+so to use this we have to put it above a class of which you want to create an object.
+
+so to tell the package of the class we will use
+<context:component-scan base-package=" " />
+
+in this to get the object we will use camelcase of class
+for e.g.
+
+@Component
+class Student
+{
+
+}
+Student student=new Student()
+
+in the above case we have use the variable name (student) the camelcase pattern of the class name
+as if you have not provided any bean name then it will automatically use the name of class but in small case
+
+and to declare the value of a particular variable we can use @Value above that to set its value
+
+for e.g. -
+@Value("danij")
+private String name;
+
+and to change the variable of bean we can put the new name in @Component("newname")
+
+which we haev to use inside getBean("newname");
+
+//COLLECTION INSERTION WITH @VALUE
+
+in this we have to define the list as we have done previously but to inject it we will do it by its it 
+for e.g.
+
+//in xml file
+ <util:list list-class="java.util.ArrayList" id="temp">
+ <value>dnaish</value>
+ <value>kalia</value>
+ </util:list>
+
+//in student file
+@Value("#{temp}")
+private List<String> address;
+
+to inject its value we will use @Value()- and inside its we will put the id of array list with # and { }
+
+//SPRING BEAN SCOPE
+
+5 defines scope
+
+singleton
+prototype
+request
+session
+globalSession
+
+the request and session are mainly for web application dev and others are for java core applications.
+
+singleton-This scopes the bean definition to a single instance per Spring IoC container. only single object will be created and provided to you.
+
+prototype-This scopes a single bean definition to have any number of object instances.every time we call it a new object will be created.
+
+globalSession is basically for portrait app.
+
+hashcode is a numeric value which helps in identification of an object
+
+if defaultly we creates 2 objects and call the hash code of both it will print the same which means that it is singleton by default as 1st time the object is creatd and 2nd time it gives us the 1st object defined.
+
+so to change this or configure this we have 2 methods:
+xml file
+annotation
+
+1.
+<bean class="" name="" scope="prototype" />
+
+in scope we can tell singleton or prototype
+
+2. annotation
+we can use @Scope("")
+for e.g.
+@Component
+@Scope("prototype")
+class student{
+
+}
+
+//SPRING EXPRESSION LANGUAGE
+it supports parsing and executing expressions inside @Value annotations
+
+syntax= 
+@Value("# {expression} ")
+
+our expression can be class variable method constructor and objects or symbols such as char keyowords which return a value
+
+we can also solve expression by making a new object of spell expression parser 
+
+//HOW TO INVOKE STATIC METHOD AND VARIABLE
+
+to call it we have to use the below format in expresion
+
+T(class).method(param)
+
+to call variable
+T(class).variable
+
+to create objects:-
+new Objectname(value)
+
+to give boolean values:-
+@Value("#{3<10}")
+
+//removing complete xml configuration and replacing it with annotations
+
+in previous tutorials we have used base-package=" " to tell the ioc container that in which package to create the object with @Component
+
+but we can do so without xml file and by direct java in a particular file and that file we have to declare with @Configuration whcih means that all the configuration details will be inside that class
+
+@ComponentScan(basePackages = "com.spring.config" )
+
+in the above annotation we have to declare the base class
+
+ApplicationContext context=new AnnotationConfigApplicationContext(config.class);
+
+and in app context we now have to declare annotation config .
+
+component scan annotation can be replaced by bean annotation
+
+
+@Bean
+public Student getStudent()
+{
+Student student=new Student();
+return student;
+}
+}
+
+we have make a method which have return type student which is an object but with the use of bean annotation we are telling it that the returned object will move to ioc container and the name of method will be the id of bean which is getStudent();
+
+so if we are use the above @Bean so we dont need @component and @componentscan 
+
+and in @Bean if we want to change the name which is by default the name of method that has @bean 
+
+we can use @Bean(name={"danish","kartik"})
+
+and we can give them multiple names and can use the all to denote them
+
+

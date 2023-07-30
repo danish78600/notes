@@ -1,0 +1,102 @@
+JSP
+
+when a client send request to server then the servelet processes information and genereates dynamic web page with the help of out.print("<html><><>..."> in .java file. but this was creating a problem as it makes designing compilicated and also mixes the frontend and backend code . so to solve this jsp was introduced that contains only frontend code.
+
+note-both jsp and servlet are server side technology.
+
+JSP-JAVA SERVER PAGES
+jsp is a server side technology which is used to generate dynamic web pages. it is an advance part of servelets.
+
+servelet is a .java page and jsp is html page but its extension is .jsp.
+
+so in servlet we can use html tags as same as this we can use java code in jsp file
+
+//LIFE CYCLE OF JSP
+
+1. translation-the jsp page is converted into servelet.
+
+2.compilation-the servelet page generated is compiled into bytecode means .class page
+
+3.loading and initiantiation-class file is loaded in server and obj is created.
+
+4.initialisation-the object which is created and its values is initialised .
+we can d so by jspInit();
+
+5.request handling-the client's request will be handled. this was done by _jspService();
+
+6.destroy-the object which is creatd is destroyed by jspDestroy();
+
+these jsp life cycle methods are executed by jsp container.
+
+//JSP TAGS
+
+3 types
+1. scripting tags syntax <% %>
+2. directive tags syntax <%@ %>
+3. action tags syntax <jsp:- />
+
+scripting tags contains java code .
+
+directive tags tells the instruction to jsp container that how to handle jsp pages.
+
+Action tags are used to perform specific actions or operations within jsp page. it is a way to interact with java objects control flow and performs different actions.
+
+###scripting tags are furthur divided into 3 tags
+scriptlet <% %>
+declaration <%! %>
+expression <%= %>
+
+scriptlet contains java code.
+declaration - to declaring methods and variables
+expression - to print java code.
+
+####directive tags are furthur divided into 3 tags:
+page directive <%@ page attribute="value" %>
+include directive <%@ include file="resource" %>
+taglib directive <%@ taglib uri="" prefix="" %>
+
+####action tags are also divided
+include tags <jsp:include />
+forward tags <jsp:forward />
+beans action tags etc..
+
+there are also some other tags like:
+jstl 
+spring mvc 
+etc. which we can use by taglib directive. by providing there uri and prefix
+
+whenever jsp page is declared it is translated in servelet page for e.g index.jsp is converted into index_jsp.java
+
+so the values or part of declaration tags will come under class in java and the code of scriptlet and expression tag will be stored as a local variable in void _jspService() 
+
+//IMPLICIT OBJECTS IN JSP
+
+objects provided by jsp which we donot need to create 
+for e.g. out.print("hlo");
+
+as in .java servlet we have to create the object first PrintWriter out=resp.getWriter();
+
+so there are 9 objects provided by jsp
+
+some of them are request response session out
+
+//EL-EXPRESSION LANGUAGE
+
+it was introduced in jsp 2.0 
+we have many objects where data is stored for e.g. req object session object so to access the data from data we uses
+session.getAttribute()
+req.getParameter()
+
+But expression language directly retrives data from object in an easy way
+
+so expression language is an easy way by which we can access data from object by using its implicit objects.
+
+syntax- ${expression}
+
+${requestScope.name_key} - for fetching value of session
+
+${pass }- for fetching value of session we can directly pass parameters
+
+${params.pass}- for fetching data of a form we can use params .
+
+

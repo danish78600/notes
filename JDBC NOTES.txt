@@ -1,0 +1,82 @@
+JDBC-JAVA DATABASE CONNECTIVITY
+
+it is an api provided by oracle for java to interact with different set of databases
+
+by use of this we can do database operations with the use of java
+
+why jdbc:-
+the variables which we make in our program are temperory and are deleted when the program is finished.
+
+
+but with jdbc we can save data and perform crud operations.
+
+JDBC ARCHITECTURE:-
+
+java uses jdbc api which have multiple database drivers as its child which have furthur connected to the respective database.
+
+HOW TO SETUP A CONNECTION
+
+load the driver- 
+Class.forname("com.mysql.jdbc.Driver")
+
+create a connection
+Connection con=DriverManager.getConnection(url,username,password)
+
+create a query , to fire the query- statement or prepared statement or callable statement.
+String q="select * from table";
+Statement stm=con.createStatement(q);
+Result set=stm.executeQuery(q);
+
+Process the data
+while(set.next())
+{
+int id=set.getId()  //in this we can pass 2 values either name or column no.
+s.o.p(id);
+}
+
+close the connection
+con.close();
+
+
+There are different types of statements that are used in JDBC as follows:
+
+Create Statement
+Prepared Statement
+Callable Statement
+
+1.  Create a Statement: From the connection interface, you can create the object for this interface. It is generally used for general–purpose access to databases and is useful while using static SQL statements at runtime.
+
+Syntax:
+Statement statement = connection.createStatement();
+
+boolean execute(String SQL): If the ResultSet object is retrieved, then it returns true else false is returned. Is used to execute SQL DDL statements or for dynamic SQL.
+
+int executeUpdate(String SQL): Returns number of rows that are affected by the execution of the statement, used when you need a number for INSERT, DELETE or UPDATE statements.
+
+ResultSet executeQuery(String SQL): Returns a ResultSet object. Used similarly as SELECT is used in SQL.
+
+2. Prepared Statement represents a recompiled SQL statement, that can be executed many times. This accepts parameterized SQL queries. In this, “?” is used instead of the parameter, one can pass the parameter dynamically by using the methods of PREPARED STATEMENT at run time.
+
+String query = "INSERT INTO people(name, age)VALUES(?, ?)";
+Statement pstmt = con.prepareStatement(query);
+
+3.
+
+
+
+
+
+
+
+
+
+
+Result set is use to get the data fetched.result set is an object which stores data in the form of tables.
+
+
+
+
+
+
+
+

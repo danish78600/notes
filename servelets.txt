@@ -1,0 +1,137 @@
+life cycle of a servelet 
+1. loading and instatiation- when the server is started the servelet file will be compiled and loaded in the memory and its object will be creatd.
+
+2.initialisation- it will initialise the servelet object by init()
+
+3. request handling-when any request is sent my client then service method is invoked which will handle the request (check the type of request )
+whenver the client sents the request the threads are created and each thread will handle the request.
+
+4. destroy-as when the server is shut down  destroy method will be called.and servlet method will be deleted
+
+the 1st 2nd 4th methods are called only once but the 3rd method is called continously as the request are comming.
+
+
+//DEPLOYMENT DESCRIPTOR WEB.XML
+
+it tells that which servelet to call according to the request by client.
+
+basic syntax of web.xml
+
+<web-app     >
+
+
+ <servlet-mapping>
+<servlet-name>servelett</servlet-name>
+<url-pattern>/ada</url-pattern>
+ </servlet-mapping>
+  
+<servlet>
+<servlet-name>servelett</servlet-name>
+<servlet-class>com.servelet.servelett</servlet-class>
+</servlet>
+
+</web-app>
+
+in this syntax there are 2 main tags which are servelet tag and servelet maping tag.
+it will firstly check in the servelet mapping -the url and if the url is requested then which name is present and then it will goes to second tag then if the 1st name matched with the name in the 2nd tag then it will call the servelet which is provided in the servelet class tag
+
+we wil create web.xml file in web.inf folder in webapp folder.
+
+in older times web.xml is compulsary but in latest version it is not compulsary instead we can use annotations instead of it.
+
+//SERVELET ANNOTATIONS CONFIGURATIONS
+
+instead of doing all the stuff in web.xml we can simply use web annotation from which we can easily call the servelet on a particular request .
+syntax - WebServlet("url")
+
+//HTTP SERVLETREQUEST AND HTTP SERVELET RESPONSE
+
+both the above are interfaces.
+whenevr a req comes from client side if we want get data from it then we can use http servelet req interface to get the data by its methods
+one of its method is 
+String name=req.getParameter("name");
+
+as by the use of http req servelet we can access the req object sent by client
+
+and we can sent response by the Printwriter reference
+
+Printwriter out=resp.getWriter();
+out.print("hlo"+name);
+
+so with the use of out object we prints the response on browser.
+
+//DIFFERENCE BETWEEN GET AND POST METHODS
+
+both are http methods. http methods are actions which are performed on resources(data) present on server
+
+whenever we sents request from client to server data is transfered .
+if we want to sent data in the form of url then we uses get which is not safe for sensitive information. but if we want to sent data through http message body then we uses post request whhich is safe for sensitive information.
+
+get is fast post is slow
+
+get is used for simple data but for large data post is used.
+
+in get we uses doGet()
+in post we use doPost()
+
+//SEND REDIRECT () AND REQUEST DISPATCHER INTERFACE
+
+SEND REDIRECT-The sendRedirect() method of HttpServletResponse interface can be used to redirect response to another resource, it may be servlet, jsp or html file.
+
+it redirects us to another url or page .
+
+REQUEST DISPATCHER-The RequestDispatcher interface provides the facility of dispatching the request to another resource it may be html, servlet or jsp
+
+differnece - The forward () method of the RequestDispatcher works on the server-side, while the SendRedirect() method works on the client-side
+
+we can use send direct with response object and it redirects to externall application
+
+syntax-resp.sendRedirect("https://www.google.com/search?q="+search);
+
+we can use request dispatcher with request object and it redirects to internal application.
+
+//HTTP SESSION 
+if we send a req from client side to server some data is also send take an example that your pass is send from login page to profile page and the profile page has 2 sub links of home and about. but here in the home and about page we cannot access the password 
+
+as the pass is comming on profile page by request object and request object scope is only from one page to another page so it will be deleted after one page transfer. So to access them in other pages we use Session.
+
+to solve this problem we can create Session object and those values that i want to access on other pages i will set those values in the session object. and once they are set i can directly get them from all pages.
+from this the identity of user remains maintained.
+
+to create the session object we will use httpservelet request interface
+
+HttpSession hs=req.getSession();
+
+above method-if session is created then it will store it in get and if not created then it will create a new session then it will get it
+
+we can access differnet methods with hs object.
+
+hs.setAttribute(key,value);
+hs.getAttribute(key);
+
+in case of logout if we want to delete session then we can use hs.invalidate()
+
+and if we want to delete a particular key value then:- hs.removeAttribute(key);
+
+working of session- when client sends req to server the session part is created if coded then the unique(session id) of client is stored in session. and if the client agains sents the req then it will matches the user id if matched then it is ok . 
+
+//COOKIES
+
+cokkies are the textual information which are stored in key value pair format to the client's browser during multiple requests.
+
+In client server model there was a problem that whenever the client sends request to the server the server takes it as a new request . now this problem is solved by cookies
+
+cokkies are send with response to the client and are stored to the browser and if the client sends the req 2 then the cokkie also move to the server by browser and then the server will identify that it is the same client.
+
+we can use cookie in java by cookie class and with javax.servlet.http package
+
+to make a cookie just create an object of cookie class and pass name and value to it.
+
+then add cookie to response
+resp.addCookie(cookiename);
+
+this add cookie method is within httpserveletresponse.
+
+to fetch cookie we can use request.getCookies();
+it will gives you an array of cookies. and we can use its reference.
+
