@@ -251,4 +251,4 @@ throws-Used to indicate what exception type may be thrown by a method
 
 so we have to use the method only inside the try catch block if we use throws keyword. as it will told otherwise that this method has a warning which is due to throws keyword so make a try catch .
 
-oops here
+oops heree
